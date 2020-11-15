@@ -5,19 +5,22 @@ function Search(props) {
         <div className="container fluid">
             <form>
                 <div className="form-group">
-                    <label htmlFor="search">Search:</label>
-                    <input
-                        onChange={props.handleInputChange}
-                        value={props.search}
-                        name="search"
-                        type="text"
-                        className="form-control"
-                        placeholder="Employee Name"
-                        id="search"
-                    />
-                    {/* <button onClick={props.handleFormSubmit} className="btn btn-success mt-3">
-                        Click Here!
-                    </button> */}
+                    <div className="row">
+                        <div className="col-4"></div>
+                        <div className="col-4">
+                            <h4><center>Enter Employee Name Here</center></h4>
+                            <input
+                                onChange={props.handleInputChange}
+                                value={props.search}
+                                name="search"
+                                type="text"
+                                className="form-control"
+                                placeholder="First and/or Last Name"
+                                id="search"
+                            />
+                            <div className="col-4"></div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

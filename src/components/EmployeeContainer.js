@@ -8,7 +8,7 @@ import Jumbotron from "./Jumbotron";
 class EmployeeContainer extends Component {
   state = {
     search: "",
-    employees: [], 
+    employees: [],
     filteredEmployees: []
   };
 
@@ -19,7 +19,7 @@ class EmployeeContainer extends Component {
   getEmployees = () => {
     API.retrieve()
       .then(response => {
-       
+
         this.setState({ employees: response.data.results })
         this.setState({ filteredEmployees: response.data.results })
 
@@ -37,16 +37,16 @@ class EmployeeContainer extends Component {
 
   searchDirectory = search => {
     const filteredEmployees = [];
-    for (let i= 0;i < this.state.employees.length; i++) {
+    for (let i = 0; i < this.state.employees.length; i++) {
       const firstName = this.state.employees[i].name.first.toLowerCase();
       const lastName = this.state.employees[i].name.last.toLowerCase();
-     if (firstName === search) {
-       filteredEmployees.push(this.state.employees[i]);
-     } else if (lastName === search) {
-      filteredEmployees.push(this.state.employees[i]);
-     } else if (firstName + " " + lastName === search) {
-      filteredEmployees.push(this.state.employees[i]);
-     }
+      if (firstName === search) {
+        filteredEmployees.push(this.state.employees[i]);
+      } else if (lastName === search) {
+        filteredEmployees.push(this.state.employees[i]);
+      } else if (firstName + " " + lastName === search) {
+        filteredEmployees.push(this.state.employees[i]);
+      }
     }
     this.setState({ filteredEmployees: filteredEmployees })
     console.log(filteredEmployees);
@@ -69,20 +69,20 @@ class EmployeeContainer extends Component {
 
     const lastNameFilterResult = this.state.filteredEmployees.sort(function (a, b) {
       if (a.name.last < b.name.last) {
-          return -1;
+        return -1;
       }
       if (b.name.last > a.name.last) {
-          return 1;
+        return 1;
       }
-  })
-  console.log(this.state.filteredEmployees);
-  this.setState({ filteredEmployees: lastNameFilterResult });
+    })
+    console.log(this.state.filteredEmployees);
+    this.setState({ filteredEmployees: lastNameFilterResult });
   }
 
   render() {
     return (
 
-      <div className="container">
+      <div className="container fluid">
         <Jumbotron />
 
         <Search
@@ -90,9 +90,25 @@ class EmployeeContainer extends Component {
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
-        <button onClick={this.handleFormSubmit}>Submit</button>
-        <button onClick={this.clearSearch}>Clear Search</button>
-        <button onClick={this.sortLastName}>Sort By Last Name</button>
+        <div className="row">
+          <div className="col-2"></div>
+          <div className="col-3">
+            <button onClick={this.handleFormSubmit}>Submit To Find Name</button>
+            <br></br><br></br>
+          </div>
+          <div className="col-3">
+            <button onClick={this.clearSearch}>Clear Name Search</button>
+            <br></br><br></br>
+          </div>
+          <div className="col-3">
+            <button onClick={this.sortLastName}>Sort By Last Name</button>
+          </div>
+
+
+
+
+        </div>
+        <br></br>
 
         <Table employees={this.state.filteredEmployees} />
 

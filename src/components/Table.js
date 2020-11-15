@@ -19,7 +19,7 @@ function Table(props) {
                     {props.employees[0] &&
                         props.employees.map(user => {
                             return (
-                                <tr key= {user.id.value}>
+                                <tr key={user.id.value}>
                                     <td><img src={user.picture.thumbnail} alt=""></img></td>
                                     <td>{user.name.title}</td>
                                     <td>{user.name.first}</td>
