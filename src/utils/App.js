@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Table from '../components/Table';
 import Search from '../components/Search';
 import Jumbotron from '../components/Jumbotron';
+import EmployeeContainer from '../components/EmployeeContainer';
 
 function App() {
   const requestURL = "https://randomuser.me/api/?results=200&nat=us"
