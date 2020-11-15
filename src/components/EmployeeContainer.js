@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 
-import App from '../utils/App.js';
+import API from "../utils/API";
 import Table from "./Table";
 import Search from "./Search";
+import Jumbotron from "./Jumbotron";
 
 class EmployeeContainer extends Component {
   state = {
     search: "",
-    employees: []
+    employees: [], 
+    filteredEmployees: []
   };
 
   componentDidMount() {
@@ -15,10 +17,11 @@ class EmployeeContainer extends Component {
   }
 
   getEmployees = () => {
-    App.retrieve()
+    API.retrieve()
       .then(response => {
        
         this.setState({ employees: response.data.results })
+        this.setState({ filteredEmployees: response.data.results })
 
       }).catch(err => console.log(err));
   };
@@ -32,23 +35,66 @@ class EmployeeContainer extends Component {
     console.log(event.target.value);
   };
 
+  searchDirectory = search => {
+    const filteredEmployees = [];
+    for (let i= 0;i < this.state.employees.length; i++) {
+      const firstName = this.state.employees[i].name.first.toLowerCase();
+      const lastName = this.state.employees[i].name.last.toLowerCase();
+     if (firstName === search) {
+       filteredEmployees.push(this.state.employees[i]);
+     } else if (lastName === search) {
+      filteredEmployees.push(this.state.employees[i]);
+     } else if (firstName + " " + lastName === search) {
+      filteredEmployees.push(this.state.employees[i]);
+     }
+    }
+    this.setState({ filteredEmployees: filteredEmployees })
+    console.log(filteredEmployees);
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
-    this.searchDirectory(this.state.search);
+    this.searchDirectory(this.state.search.toLowerCase());
   };
+
+  clearSearch = event => {
+    event.preventDefault();
+    this.setState({ filteredEmployees: this.state.employees });
+  }
+
+  sortLastName = event => {
+    event.preventDefault();
+    // let sortedLastNames = this.state.filteredEmployees.sort((a,b) => (a.name.last - b.name.last)) 
+    // console.log(sortedLastNames)
+
+    const lastNameFilterResult = this.state.filteredEmployees.sort(function (a, b) {
+      if (a.name.last < b.name.last) {
+          return -1;
+      }
+      if (b.name.last > a.name.last) {
+          return 1;
+      }
+  })
+  console.log(this.state.filteredEmployees);
+  this.setState({ filteredEmployees: lastNameFilterResult });
+  }
 
   render() {
     return (
+
       <div className="container">
-        <button onClick={this.handleFormSubmit}>Submit</button>
+        <Jumbotron />
 
         <Search
           search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
         />
+        <button onClick={this.handleFormSubmit}>Submit</button>
+        <button onClick={this.clearSearch}>Clear Search</button>
+        <button onClick={this.sortLastName}>Sort By Last Name</button>
 
-        <Table employees={this.state.employees} />
+        <Table employees={this.state.filteredEmployees} />
 
       </div>
     );

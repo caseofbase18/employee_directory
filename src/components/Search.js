@@ -2,7 +2,7 @@ import React from "react";
 
 function Search(props) {
     return (
-        <div class="container fluid">
+        <div className="container fluid">
             <form>
                 <div className="form-group">
                     <label htmlFor="search">Search:</label>
@@ -15,9 +15,9 @@ function Search(props) {
                         placeholder="Employee Name"
                         id="search"
                     />
-                    <button onClick={props.handleFormSubmit} className="btn btn-success mt-3">
+                    {/* <button onClick={props.handleFormSubmit} className="btn btn-success mt-3">
                         Click Here!
-                    </button>
+                    </button> */}
                 </div>
             </form>
         </div>

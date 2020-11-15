@@ -2,7 +2,7 @@ import React from 'react';
 
 function Table(props) {
     return (
-        <div class="container fluid">
+        <div className="container fluid">
             <table className="table table-striped table-bordered table-hover">
                 <thead className="thead-dark">
                     <tr>
@@ -16,10 +16,10 @@ function Table(props) {
 
                 </thead>
                 <tbody>
-                    {props.users[0] &&
-                        props.users.map(user => {
+                    {props.employees[0] &&
+                        props.employees.map(user => {
                             return (
-                                <tr>
+                                <tr key= {user.id.value}>
                                     <td><img src={user.picture.thumbnail} alt=""></img></td>
                                     <td>{user.name.title}</td>
                                     <td>{user.name.first}</td>
