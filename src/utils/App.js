@@ -1,8 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Table from './components/Table';
+import Table from '../components/Table';
+import Search from '../components/Search';
+import Jumbotron from '../components/Jumbotron';
 
 function App() {
   const requestURL = "https://randomuser.me/api/?results=200&nat=us"
@@ -31,8 +33,15 @@ function App() {
 
   return (
     <div className="App">
+       <Jumbotron users= {users}>
+      </Jumbotron>
+      <Search users= {users}>
+      </Search>
       <Table users= {users}> 
       </Table>
+      
+     
+     
     </div>
   );
 }
